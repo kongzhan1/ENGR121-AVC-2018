@@ -4,9 +4,9 @@
 int main()
 {
 	init();
-	set_motor(0,127);
-	
-	sleep1(1,0);
-	set_motor(0,0);
+	take_picture();
+	char fn[5] = "test";
+	save_picture(fn);
+
 	return 0;
 }
