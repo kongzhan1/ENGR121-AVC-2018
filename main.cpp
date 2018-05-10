@@ -1,28 +1,29 @@
 #include <stdio.h>
 #include "E101.h"
 
-double get_turn();
+int white_threshold = 127;
 
+double get_turn();
+void set_threshold();
 
 int main()
 {
     //test - just makes it go forward for 2 secs
 	init();
 	
+	//set the threshold when turning it on
+	set_threshold();
+	
 	for(int i = 0;i<10;i++)
 	{
 		sleep1(1,0);
-		printf("Test %d: %f",i,get_turn());
+		printf("Test %d: %f\n",i,get_turn());
 	}
 	
-    printf();
 	return 0;
 }
 
-/**
- * This will return a value between -1 and 1 of where the white line is. 0 is the exact centre. 1 is all the way to right, -1 is all the way to left
- * */
-double get_turn()
+void set_threshold()
 {
 	//get picture
     take_picture();
@@ -45,8 +46,17 @@ double get_turn()
 		}
 	}
 	//threshold
-	int white_threshold = min_white+(max_white-min_white)/2
-    
+	white_threshold = min_white+(max_white-min_white)/2;
+}
+
+/**
+ * This will return a value between -1 and 1 of where the white line is. 0 is the exact centre. 1 is all the way to right, -1 is all the way to left
+ * */
+double get_turn()
+{
+	//get picture
+    take_picture();
+	
     int white_pixels = 0;
     double white_location = 0;
     
@@ -61,7 +71,11 @@ double get_turn()
 			white_location += percent_location;
 		}
 	}
-	
+	//no white pixels
+	if(white_pixels==0)
+	{
+		return 0;
+	}
 	//average location of the white pixels
 	double average_white_location = white_location/white_pixels;
 	return average_white_location;
