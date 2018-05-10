@@ -62,7 +62,7 @@ double get_turn()
     
     for(int x=0;x<320;x++)
     {
-		double percent_location = (x-120)/120;//-1 = completely to left, 1 = completely to right, 0 = centre
+		double percent_location = (x-160)/160;//-1 = completely to left, 1 = completely to right, 0 = centre
 		int white = get_pixel(y,x,3);
 		//detect white
 		if(white>threshold)
