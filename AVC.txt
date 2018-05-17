@@ -43,7 +43,7 @@ front_sensor = front_sensor/5;
 left_sensor = left_sensor/5;
  right_sensor = right_sensor/5;
 //if the error is 0, it is the center
-sensor_final_signal = (((float)sensor_error* sensor_kp)/160);
+sensor_error = (float)left_sensor - (float)right_sensor;
 return 0;
 }
 
